@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_disposal_rate_report_tree" model="ir.ui.view">
+        <field name="name">sql.disposal.rate.report.tree</field>
+        <field name="model">sql.disposal.rate.report</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="date"/>
+                <field name="contract_order_number"/>
+                <field name="disposal_site"/>
+                <field name="waste_stream"/>
+                <field name="waste_type"/>
+                <field name="disposal_rate_per_ton" sum="Total Rate"/>
+                <field name="discount_rate"/>
+                <field name="escalation_rate"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_disposal_rate_report_form" model="ir.ui.view">
+        <field name="name">sql.disposal.rate.report.form</field>
+        <field name="model">sql.disposal.rate.report</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="contract_order_number"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Basic Info">
+                            <field name="date"/>
+                            <field name="disposal_site"/>
+                            <field name="waste_stream"/>
+                            <field name="waste_type"/>
+                        </group>
+                        <group string="Date Parts">
+                            <field name="year"/>
+                            <field name="month"/>
+                            <field name="weeks"/>
+                            <field name="day"/>
+                        </group>
+                        <group string="Rates">
+                            <field name="disposal_rate_per_ton"/>
+                            <field name="discount_rate"/>
+                            <field name="escalation_rate"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_disposal_rate_report_search" model="ir.ui.view">
+        <field name="name">sql.disposal.rate.report.search</field>
+        <field name="model">sql.disposal.rate.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="contract_order_number"/>
+                <field name="disposal_site"/>
+                <field name="waste_stream"/>
+                <field name="waste_type"/>
+                <group expand="1" string="Group By">
+                    <filter string="Year" name="group_year" context="{'group_by': 'year'}"/>
+                    <filter string="Month" name="group_month" context="{'group_by': 'month'}"/>
+                    <filter string="Week" name="group_week" context="{'group_by': 'weeks'}"/>
+                    <filter string="Site" name="group_site" context="{'group_by': 'disposal_site'}"/>
+                    <filter string="Waste Stream" name="group_stream" context="{'group_by': 'waste_stream'}"/>
+                    <filter string="Waste Type" name="group_type" context="{'group_by': 'waste_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_disposal_rate_report" model="ir.actions.act_window">
+        <field name="name">Disposal Rates</field>
+        <field name="res_model">sql.disposal.rate.report</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_disposal_rate_report_tree"/>
+    </record>
+
+    <menuitem 
+        id="menu_disposal_rate_report"
+        name="Disposal Rates"
+        parent="menu_sql_data"
+        action="action_disposal_rate_report"
+        sequence="100"/>
+</odoo> 

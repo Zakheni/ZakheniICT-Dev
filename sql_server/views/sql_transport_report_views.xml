@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_transport_report_tree" model="ir.ui.view">
+        <field name="name">sql.transport.report.tree</field>
+        <field name="model">sql.transport.report</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="date"/>
+                <field name="contract_order_number"/>
+                <field name="service_offering_type"/>
+                <field name="waste_stream"/>
+                <field name="waste_type"/>
+                <field name="rate_per_bin" sum="Total Bin Rate"/>
+                <field name="rate_per_km" sum="Total Km Rate"/>
+                <field name="rate_per_load" sum="Total Load Rate"/>
+                <field name="fixed_transport_rate" sum="Total Fixed Rate"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_transport_report_form" model="ir.ui.view">
+        <field name="name">sql.transport.report.form</field>
+        <field name="model">sql.transport.report</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="contract_order_number"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Basic Info">
+                            <field name="date"/>
+                            <field name="service_offering_type"/>
+                            <field name="custom_invoice_type"/>
+                        </group>
+                        <group string="Waste Info">
+                            <field name="waste_stream"/>
+                            <field name="waste_type"/>
+                        </group>
+                        <group string="Date Parts">
+                            <field name="year"/>
+                            <field name="month"/>
+                            <field name="weeks"/>
+                            <field name="day"/>
+                        </group>
+                        <group string="Rates">
+                            <field name="rate_per_bin"/>
+                            <field name="rate_per_km"/>
+                            <field name="rate_per_load"/>
+                            <field name="fixed_transport_rate"/>
+                            <field name="discount_rate"/>
+                            <field name="escalation_rate"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_transport_report_search" model="ir.ui.view">
+        <field name="name">sql.transport.report.search</field>
+        <field name="model">sql.transport.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="contract_order_number"/>
+                <field name="service_offering_type"/>
+                <field name="waste_stream"/>
+                <field name="waste_type"/>
+                <group expand="1" string="Group By">
+                    <filter string="Year" name="group_year" context="{'group_by': 'year'}"/>
+                    <filter string="Month" name="group_month" context="{'group_by': 'month'}"/>
+                    <filter string="Week" name="group_week" context="{'group_by': 'weeks'}"/>
+                    <filter string="Service Type" name="group_service" context="{'group_by': 'service_offering_type'}"/>
+                    <filter string="Waste Stream" name="group_stream" context="{'group_by': 'waste_stream'}"/>
+                    <filter string="Waste Type" name="group_type" context="{'group_by': 'waste_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_transport_report" model="ir.actions.act_window">
+        <field name="name">Transport Rates</field>
+        <field name="res_model">sql.transport.report</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_transport_report_tree"/>
+    </record>
+
+    <menuitem 
+        id="menu_transport_report"
+        name="Transport Rates"
+        parent="menu_sql_data"
+        action="action_transport_report"
+        sequence="130"/>
+</odoo> 

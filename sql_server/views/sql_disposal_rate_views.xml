@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_disposal_rate_analysis_tree" model="ir.ui.view">
+        <field name="name">sql.disposal.rate.analysis.tree</field>
+        <field name="model">sql.disposal.rate.analysis</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="date"/>
+                <field name="manifest_number"/>
+                <field name="disposal_site"/>
+                <field name="waste_stream"/>
+                <field name="waste_type"/>
+                <field name="tonnage" sum="Total Tonnage"/>
+                <field name="exclusive_amount" sum="Total Excl."/>
+                <field name="inclusive_amount" sum="Total Incl."/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_disposal_rate_analysis_form" model="ir.ui.view">
+        <field name="name">sql.disposal.rate.analysis.form</field>
+        <field name="model">sql.disposal.rate.analysis</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="manifest_number"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Basic Info">
+                            <field name="date"/>
+                            <field name="disposal_site"/>
+                            <field name="waste_stream"/>
+                            <field name="waste_type"/>
+                        </group>
+                        <group string="Date Parts">
+                            <field name="year"/>
+                            <field name="month"/>
+                            <field name="weeks"/>
+                            <field name="day"/>
+                        </group>
+                        <group string="Amounts">
+                            <field name="tonnage"/>
+                            <field name="exclusive_amount"/>
+                            <field name="inclusive_amount"/>
+                        </group>
+                        <group string="Rates">
+                            <field name="vat_rate"/>
+                            <field name="discount_rate"/>
+                            <field name="escalation_rate"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_disposal_rate_analysis_search" model="ir.ui.view">
+        <field name="name">sql.disposal.rate.analysis.search</field>
+        <field name="model">sql.disposal.rate.analysis</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="manifest_number"/>
+                <field name="disposal_site"/>
+                <field name="waste_stream"/>
+                <field name="waste_type"/>
+                <group expand="1" string="Group By">
+                    <filter string="Year" name="group_year" context="{'group_by': 'year'}"/>
+                    <filter string="Month" name="group_month" context="{'group_by': 'month'}"/>
+                    <filter string="Week" name="group_week" context="{'group_by': 'weeks'}"/>
+                    <filter string="Site" name="group_site" context="{'group_by': 'disposal_site'}"/>
+                    <filter string="Waste Stream" name="group_stream" context="{'group_by': 'waste_stream'}"/>
+                    <filter string="Waste Type" name="group_type" context="{'group_by': 'waste_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_disposal_rate_analysis" model="ir.actions.act_window">
+        <field name="name">Disposal Rate Analysis</field>
+        <field name="res_model">sql.disposal.rate.analysis</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_disposal_rate_analysis_tree"/>
+    </record>
+
+    <menuitem 
+        id="menu_disposal_rate_analysis"
+        name="Disposal Rate Analysis"
+        parent="menu_sql_data"
+        action="action_disposal_rate_analysis"
+        sequence="90"/>
+</odoo> 

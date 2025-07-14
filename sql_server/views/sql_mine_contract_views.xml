@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mine_contract_analysis_tree" model="ir.ui.view">
+        <field name="name">sql.mine.contract.analysis.tree</field>
+        <field name="model">sql.mine.contract.analysis</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="contract_order_number"/>
+                <field name="customer_name"/>
+                <field name="mine_name"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="service_offering_type"/>
+                <field name="waste_description"/>
+                <field name="waste_detail"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mine_contract_analysis_form" model="ir.ui.view">
+        <field name="name">sql.mine.contract.analysis.form</field>
+        <field name="model">sql.mine.contract.analysis</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="contract_order_number"/>
+                            <field name="customer_name"/>
+                            <field name="mine_name"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group string="Service Details">
+                            <field name="service_offering_type"/>
+                            <field name="waste_description"/>
+                            <field name="waste_detail"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mine_contract_analysis_search" model="ir.ui.view">
+        <field name="name">sql.mine.contract.analysis.search</field>
+        <field name="model">sql.mine.contract.analysis</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="contract_order_number"/>
+                <field name="customer_name"/>
+                <field name="mine_name"/>
+                <field name="service_offering_type"/>
+                <field name="waste_description"/>
+                <group expand="1" string="Group By">
+                    <filter string="Customer" name="group_customer" context="{'group_by': 'customer_name'}"/>
+                    <filter string="Mine" name="group_mine" context="{'group_by': 'mine_name'}"/>
+                    <filter string="Service Type" name="group_service" context="{'group_by': 'service_offering_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_mine_contract_analysis" model="ir.actions.act_window">
+        <field name="name">Mine Contract Analysis</field>
+        <field name="res_model">sql.mine.contract.analysis</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_mine_contract_analysis_tree"/>
+    </record>
+
+    <menuitem 
+        id="menu_mine_contract_analysis"
+        name="Mine Contract Analysis"
+        parent="menu_sql_data"
+        action="action_mine_contract_analysis"
+        sequence="30"/>
+</odoo> 

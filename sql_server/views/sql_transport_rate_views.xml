@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_transport_rate_analysis_tree" model="ir.ui.view">
+        <field name="name">sql.transport.rate.analysis.tree</field>
+        <field name="model">sql.transport.rate.analysis</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="date"/>
+                <field name="manifest_number"/>
+                <field name="service_offering_type"/>
+                <field name="waste_stream"/>
+                <field name="waste_type"/>
+                <field name="transport_rate_type"/>
+                <field name="exclusive_amount" sum="Total Excl."/>
+                <field name="inclusive_amount" sum="Total Incl."/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_transport_rate_analysis_form" model="ir.ui.view">
+        <field name="name">sql.transport.rate.analysis.form</field>
+        <field name="model">sql.transport.rate.analysis</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="manifest_number"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Basic Info">
+                            <field name="date"/>
+                            <field name="service_offering_type"/>
+                            <field name="transport_rate_type"/>
+                        </group>
+                        <group string="Waste Info">
+                            <field name="waste_stream"/>
+                            <field name="waste_type"/>
+                        </group>
+                        <group string="Date Parts">
+                            <field name="year"/>
+                            <field name="month"/>
+                            <field name="weeks"/>
+                            <field name="day"/>
+                        </group>
+                        <group string="Amounts">
+                            <field name="exclusive_amount"/>
+                            <field name="vat_rate"/>
+                            <field name="escalation_rate"/>
+                            <field name="inclusive_amount"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_transport_rate_analysis_search" model="ir.ui.view">
+        <field name="name">sql.transport.rate.analysis.search</field>
+        <field name="model">sql.transport.rate.analysis</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="manifest_number"/>
+                <field name="service_offering_type"/>
+                <field name="waste_stream"/>
+                <field name="waste_type"/>
+                <field name="transport_rate_type"/>
+                <group expand="1" string="Group By">
+                    <filter string="Year" name="group_year" context="{'group_by': 'year'}"/>
+                    <filter string="Month" name="group_month" context="{'group_by': 'month'}"/>
+                    <filter string="Week" name="group_week" context="{'group_by': 'weeks'}"/>
+                    <filter string="Service Type" name="group_service" context="{'group_by': 'service_offering_type'}"/>
+                    <filter string="Transport Type" name="group_transport" context="{'group_by': 'transport_rate_type'}"/>
+                    <filter string="Waste Stream" name="group_stream" context="{'group_by': 'waste_stream'}"/>
+                    <filter string="Waste Type" name="group_type" context="{'group_by': 'waste_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_transport_rate_analysis" model="ir.actions.act_window">
+        <field name="name">Transport Rate Analysis</field>
+        <field name="res_model">sql.transport.rate.analysis</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_transport_rate_analysis_tree"/>
+    </record>
+
+    <menuitem 
+        id="menu_transport_rate_analysis"
+        name="Transport Rate Analysis"
+        parent="menu_sql_data"
+        action="action_transport_rate_analysis"
+        sequence="120"/>
+</odoo> 

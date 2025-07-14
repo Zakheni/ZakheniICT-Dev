@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bins_analysis_tree" model="ir.ui.view">
+        <field name="name">sql.bins.analysis.tree</field>
+        <field name="model">sql.bins.analysis</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="bin_number"/>
+                <field name="bin_type"/>
+                <field name="bin_condition"/>
+                <field name="in_use"/>
+                <field name="mine_name"/>
+                <field name="bin_current_location"/>
+                <field name="waste_description"/>
+                <field name="waste_detail"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bins_analysis_form" model="ir.ui.view">
+        <field name="name">sql.bins.analysis.form</field>
+        <field name="model">sql.bins.analysis</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="bin_number"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Bin Details">
+                            <field name="bin_type"/>
+                            <field name="bin_condition"/>
+                            <field name="in_use"/>
+                        </group>
+                        <group string="Location">
+                            <field name="mine_name"/>
+                            <field name="bin_current_location"/>
+                        </group>
+                        <group string="Waste Information">
+                            <field name="waste_description"/>
+                            <field name="waste_detail"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bins_analysis_search" model="ir.ui.view">
+        <field name="name">sql.bins.analysis.search</field>
+        <field name="model">sql.bins.analysis</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="bin_number"/>
+                <field name="mine_name"/>
+                <field name="bin_current_location"/>
+                <field name="waste_description"/>
+                <filter string="In Use" name="in_use" domain="[('in_use', '=', 'True')]"/>
+                <filter string="Available" name="available" domain="[('in_use', '=', 'False')]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Mine" name="group_mine" context="{'group_by': 'mine_name'}"/>
+                    <filter string="Location" name="group_location" context="{'group_by': 'bin_current_location'}"/>
+                    <filter string="Type" name="group_type" context="{'group_by': 'bin_type'}"/>
+                    <filter string="Condition" name="group_condition" context="{'group_by': 'bin_condition'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_bins_analysis" model="ir.actions.act_window">
+        <field name="name">Bins Analysis</field>
+        <field name="res_model">sql.bins.analysis</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_bins_analysis_tree"/>
+    </record>
+
+    <menuitem 
+        id="menu_bins_analysis"
+        name="Bins Analysis"
+        parent="menu_sql_data"
+        action="action_bins_analysis"
+        sequence="60"/>
+</odoo> 

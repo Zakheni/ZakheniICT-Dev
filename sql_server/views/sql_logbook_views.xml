@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_logbook_entries_tree" model="ir.ui.view">
+        <field name="name">sql.logbook.entries.tree</field>
+        <field name="model">sql.logbook.entries</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="log_date"/>
+                <field name="driver_first_name"/>
+                <field name="truck_registration_number"/>
+                <field name="opening_km"/>
+                <field name="closing_km"/>
+                <field name="distance" sum="Total Distance"/>
+                <field name="fuel_amount" sum="Total Fuel Cost"/>
+                <field name="fuel_quantity" sum="Total Fuel"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_logbook_entries_form" model="ir.ui.view">
+        <field name="name">sql.logbook.entries.form</field>
+        <field name="model">sql.logbook.entries</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <sheet>
+                    <group>
+                        <group string="Basic Info">
+                            <field name="log_date"/>
+                            <field name="driver_first_name"/>
+                            <field name="truck_registration_number"/>
+                        </group>
+                        <group string="Distance">
+                            <field name="opening_km"/>
+                            <field name="closing_km"/>
+                            <field name="distance"/>
+                        </group>
+                        <group string="Fuel">
+                            <field name="fuel_amount"/>
+                            <field name="fuel_quantity"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_logbook_entries_search" model="ir.ui.view">
+        <field name="name">sql.logbook.entries.search</field>
+        <field name="model">sql.logbook.entries</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="driver_first_name"/>
+                <field name="truck_registration_number"/>
+                <group expand="1" string="Group By">
+                    <filter string="Driver" name="group_driver" context="{'group_by': 'driver_first_name'}"/>
+                    <filter string="Truck" name="group_truck" context="{'group_by': 'truck_registration_number'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'log_date:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_logbook_entries" model="ir.actions.act_window">
+        <field name="name">Logbook Entries</field>
+        <field name="res_model">sql.logbook.entries</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_logbook_entries_tree"/>
+    </record>
+
+    <menuitem 
+        id="menu_logbook_entries"
+        name="Logbook Entries"
+        parent="menu_sql_data"
+        action="action_logbook_entries"
+        sequence="40"/>
+</odoo> 

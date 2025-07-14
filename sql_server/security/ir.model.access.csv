@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sql_server_connection,sql.server.connection,sql_server.model_sql_server_connection,base.group_system,1,1,1,1
+access_sql_revenue_analysis,sql.revenue.analysis,sql_server.model_sql_revenue_analysis,base.group_system,1,1,1,1
+access_sql_mine_contract_analysis,sql.mine.contract.analysis,sql_server.model_sql_mine_contract_analysis,base.group_system,1,1,1,1
+access_sql_logbook_entries,sql.logbook.entries,sql_server.model_sql_logbook_entries,base.group_system,1,1,1,1
+access_sql_vehicle_inspection,sql.vehicle.inspection,sql_server.model_sql_vehicle_inspection,base.group_system,1,1,1,1
+access_sql_bins_analysis,sql.bins.analysis,sql_server.model_sql_bins_analysis,base.group_system,1,1,1,1
+access_sql_waste_analysis,sql.waste.analysis,sql_server.model_sql_waste_analysis,base.group_system,1,1,1,1
+access_sql_bookings_analysis,sql.bookings.analysis,sql_server.model_sql_bookings_analysis,base.group_system,1,1,1,1
+access_sql_disposal_rate_analysis,sql.disposal.rate.analysis,sql_server.model_sql_disposal_rate_analysis,base.group_system,1,1,1,1
+access_sql_disposal_rate_report,sql.disposal.rate.report,sql_server.model_sql_disposal_rate_report,base.group_system,1,1,1,1
+access_sql_rental_rate_report,sql.rental.rate.report,sql_server.model_sql_rental_rate_report,base.group_system,1,1,1,1
+access_sql_transport_rate_analysis,sql.transport.rate.analysis,sql_server.model_sql_transport_rate_analysis,base.group_system,1,1,1,1
+access_sql_transport_report,sql.transport.report,sql_server.model_sql_transport_report,base.group_system,1,1,1,1

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_vehicle_inspection_tree" model="ir.ui.view">
+        <field name="name">sql.vehicle.inspection.tree</field>
+        <field name="model">sql.vehicle.inspection</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false" decoration-danger="inspection_status == 'Failed'" decoration-success="inspection_status == 'Passed'">
+                <field name="inspection_date"/>
+                <field name="registration_number"/>
+                <field name="inspection_status"/>
+                <field name="inspection_comment"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_vehicle_inspection_form" model="ir.ui.view">
+        <field name="name">sql.vehicle.inspection.form</field>
+        <field name="model">sql.vehicle.inspection</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="registration_number"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="inspection_id"/>
+                            <field name="inspection_date"/>
+                            <field name="inspection_status"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Comments">
+                            <field name="inspection_comment"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_vehicle_inspection_search" model="ir.ui.view">
+        <field name="name">sql.vehicle.inspection.search</field>
+        <field name="model">sql.vehicle.inspection</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="registration_number"/>
+                <field name="inspection_status"/>
+                <field name="inspection_comment"/>
+                <filter string="Passed" name="passed" domain="[('inspection_status', '=', 'Passed')]"/>
+                <filter string="Failed" name="failed" domain="[('inspection_status', '=', 'Failed')]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Status" name="group_status" context="{'group_by': 'inspection_status'}"/>
+                    <filter string="Vehicle" name="group_vehicle" context="{'group_by': 'registration_number'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'inspection_date:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_vehicle_inspection" model="ir.actions.act_window">
+        <field name="name">Vehicle Inspections</field>
+        <field name="res_model">sql.vehicle.inspection</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_vehicle_inspection_tree"/>
+    </record>
+
+    <menuitem 
+        id="menu_vehicle_inspection"
+        name="Vehicle Inspections"
+        parent="menu_sql_data"
+        action="action_vehicle_inspection"
+        sequence="50"/>
+</odoo> 

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree view for connection status -->
+    <record id="view_sql_connection_tree" model="ir.ui.view">
+        <field name="name">sql.server.connection.tree</field>
+        <field name="model">sql.server.connection</field>
+        <field name="arch" type="xml">
+            <tree edit="true" delete="true">
+                <field name="name"/>
+                <field name="server"/>
+                <field name="database"/>
+                <field name="last_refresh"/>
+                <field name="record_count"/>
+                <field name="is_active"/>
+                <button name="test_and_load_data" string="Refresh Now" type="object" class="oe_highlight"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sql_connection_form" model="ir.ui.view">
+        <field name="name">sql.server.connection.form</field>
+        <field name="model">sql.server.connection</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="test_and_load_data" string="Test Connection &amp; Load Data" type="object" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Connection Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="server"/>
+                            <field name="database"/>
+                            <field name="username"/>
+                            <field name="password" password="true"/>
+                            <field name="is_active"/>
+                        </group>
+                        <group>
+                            <field name="last_refresh" readonly="1"/>
+                            <field name="record_count" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sql_connection_search" model="ir.ui.view">
+        <field name="name">sql.server.connection.search</field>
+        <field name="model">sql.server.connection</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="server"/>
+                <filter string="Active Connections" name="active" domain="[('is_active', '=', True)]"/>
+                <filter string="Inactive Connections" name="inactive" domain="[('is_active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sql_connection" model="ir.actions.act_window">
+        <field name="name">Connection Settings</field>
+        <field name="res_model">sql.server.connection</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">main</field>
+    </record>
+
+    <menuitem 
+        id="menu_sql_server_root" 
+        name="SQL Tasks"
+        sequence="10"/>
+
+    <menuitem 
+        id="menu_sql_connection"
+        name="Connection Settings"
+        parent="menu_sql_server_root"
+        action="action_sql_connection"
+        sequence="10"/>
+
+    <menuitem 
+        id="menu_sql_data"
+        name="Data"
+        parent="menu_sql_server_root"
+        sequence="20"/>
+</odoo> 
