@@ -7,7 +7,7 @@
     'description': """SQL Server data integration""",
     'author': 'ZakheniICT',
     'website':'www.zakhenict.co.za',
-    'license':'LGPL-4',
+    'license':'LGPL-3',
     'depends': ['base'],
     'data': [
         'security/ir.model.access.csv',
